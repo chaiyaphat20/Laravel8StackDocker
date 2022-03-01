@@ -15,11 +15,6 @@ RUN apt-get install -y nodejs
 # Copy file (image) composer:latest ไว้ที่ /usr/bin/composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Install Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-RUN composer install
-
-
 # Set working directory
 WORKDIR /var/www
 

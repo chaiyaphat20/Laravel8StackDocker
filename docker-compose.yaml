@@ -32,7 +32,7 @@ services:
       - MYSQL_USER=admin
       - MYSQL_PASSWORD=1234
     ports:
-      - "3301:3306"
+      - "9005:3306"
     restart: always
     networks:
       - web_network
@@ -45,7 +45,7 @@ services:
       - ./src:/var/www
       - ./nginx/conf:/etc/nginx/conf.d
     ports:
-      - "8100:80"
+      - "8102:80"
     restart: always
     networks:
       - web_network

@@ -24,10 +24,30 @@ RUN docker-php-ext-install bcmatch pdo_mysql
 
 8.เข้าไปดู container app
 8.1 check node -version
-docker-compose exec -it app node -v
-docker-compose exec -it app php atisan
+docker-compose exec app node -v
+docker-compose exec app php atisan
 docker-compose exec app composer -v
 
 9.ลงโปรแกรม composer 
 docker-compose exec app composer install
+
+10. Add file .env แล้ว copy data from .env.example
+
+สร้าง Key
+11. docker-compose exec app php artisan key:generate
+
+12. connect db ที่ .env   #host คือ services  #port คือ port ใน linux
+DB_CONNECTION=mysql
+DB_HOST=db
+DB_PORT=3306
+DB_DATABASE=laravel8db
+DB_USERNAME=admin
+DB_PASSWORD=1234
+
+13.ทำ migration
+- เบื้องต้น clear คำสั่ง config env
+docker-compose exec app php artisan config:clear
+
+$ docker-compose exec app php artisan migrate
+
 
