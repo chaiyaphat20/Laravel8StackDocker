@@ -1,0 +1,51 @@
+version: "3.9"
+
+# Network for Larabel8
+networks:
+  web_network:
+    name: laravel8
+    driver: bridge
+
+services:
+  # PHP App Services
+  app:
+    build:
+      context: . #path
+      dockerfile: Dockerfile # name Dockerfile123
+    image: laravel8-app
+    container_name: laravel8_app
+    restart: always
+    volumes:
+      - ./src:/var/www #Don't space
+    networks:
+      - web_network
+
+  #MySql Database Service
+  db: #Name of Servives
+    image: mysql:8.0
+    container_name: laravel8_mysql
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=1234
+      - MYSQL_DATABASE=laravel8db
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=1234
+    ports:
+      - "3301:3306"
+    restart: always
+    networks:
+      - web_network
+
+  # Nginx Web Server Service
+  nginx:
+    image: nginx:1.19.8-alpine
+    container_name: laravel8_nginx
+    volumes:
+      - ./src:/var/www
+      - ./nginx/conf:/etc/nginx/conf.d
+    ports:
+      - "8100:80"
+    restart: always
+    networks:
+      - web_network
