@@ -28,7 +28,7 @@ docker-compose exec app node -v
 docker-compose exec app php atisan
 docker-compose exec app composer -v
 
-9.ลงโปรแกรม composer 
+9.ลงโปรแกรม composer
 docker-compose exec app composer install
 
 10. Add file .env แล้ว copy data from .env.example
@@ -49,5 +49,40 @@ DB_PASSWORD=1234
 docker-compose exec app php artisan config:clear
 
 $ docker-compose exec app php artisan migrate
+
+14.ติดตั้ง redis
+15.ติดตั้ง Lib redis ในโปรเจค Laravel
+docker-compose exec  app composer require predis/predis
+
+16.แก้ env
+CACHE_DRIVER=redis
+
+REDIS_HOST=redis
+REDIS_PASSWORD=redis
+REDIS_CLIENT=predis
+REDIS_PORT=6379
+
+17.Clear Cach ENV
+docker-compose exec app php artisan config:clear
+
+19. ลง MailHog
+# MailHog (local mail testing)
+  mailhog:
+    image: mailhog/mailhog:v1.0.1
+    container_name: laravel8_mailhog
+    ports:
+      - 8025:8025
+    restart: always
+    tty: true
+    networks:
+      - web_network
+
+20.ลง PHP MyAdmin
+
+21. เพิ่ม code Email
+22.เพิ่ม code route
+
+
+
 
 
