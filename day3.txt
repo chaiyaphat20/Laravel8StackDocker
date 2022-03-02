@@ -1,0 +1,29 @@
+1.Step 1: ติดตั้ง Laravel UI package
+---
+docker-compose exec app composer require laravel/ui
+
+Step 2: Generate auth scaffolding
+---
+docker-compose exec app php artisan ui vue --auth
+
+Step 3: ติดตั้ง NPM Dependencies
+ref# https://stackoverflow.com/questions/63863222/after-upgrading-to-vue-3-cannot-find-module-vue-compiler-sfc-package-json
+---
+docker-compose exec app npm i vue-loader
+docker-compose exec app npm i vue@next
+docker-compose exec app npm i @vue/compiler-sfc -D
+docker-compose exec app npm uninstall vue-template-compiler
+
+Step 4: ทำการ Compile และ Run แอพ
+---
+docker-compose exec app npm run dev
+docker-compose exec app npm run watch
+
+Step 5: ทดสอบเรียกหน้า login และ register
+---
+http://localhost:8100/login
+http://localhost:8100/register
+
+Step 6: ทดสอบ Reset Password
+---
+http://localhost:8100/password/reset
